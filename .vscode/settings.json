@@ -1,0 +1,24 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "prettier.jsxSingleQuote": true,
+  "prettier.requireConfig": true,
+  "editor.renderWhitespace": "boundary",
+  "files.exclude": {
+    "build": false
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "editor.fontSize": 20,
+  "editor.lineHeight": 25,
+  "editor.letterSpacing": 0,
+  "files.trimTrailingWhitespace": true,
+  "editor.fontWeight": "400",
+  "editor.cursorStyle": "line",
+  "editor.cursorWidth": 5,
+  "editor.cursorBlinking": "solid",
+  "editor.fontFamily": "MonoLisa",
+  "workbench.fontAliasing": "antialiased"
+}
