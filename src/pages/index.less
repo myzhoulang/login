@@ -1,17 +1,31 @@
-.page.login {
-  background: url('../assets/images/img-7.jpg') top left repeat;
-}
 .page {
+  &.login {
+    background: url('../assets/images/img-7.jpg') top left repeat;
+  }
+  .layout {
+    align-items: end;
+    padding-right: 60px;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 376px) {
+    .layout {
+      align-items: center;
+      padding-right: 0;
+    }
+  }
+
   @media (min-width: 376px) {
-    // .login-form-wrap {
-    //   width: 600px;
-    //   padding: 40px 50px;
-    // }
+    .login-form-wrap {
+      width: 600px;
+      padding: 40px 50px;
+    }
   }
 
   .login-form-wrap {
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 8px;
   }
 }
 

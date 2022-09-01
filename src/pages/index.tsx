@@ -17,13 +17,9 @@ export default function IndexPage() {
   return (
     <div className={'login page'}>
       <Login<FormData>
-        formAlign="center"
-        contentProps={{
-          style: { background: '#fff' },
-        }}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
+        formAlign="right"
+        layoutProps={{
+          className: 'layout',
         }}
         logo="http://www.sooui.com/template/sooui/iscwo/images/logo.svg"
         title="Ant Design"

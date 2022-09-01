@@ -14,7 +14,7 @@ export default function Form(props: FormProps) {
     <>
       <ProFormText
         name="username"
-        label={'Email'}
+        label={'Email Address'}
         fieldProps={{
           size: 'large',
           prefix: <UserOutlined className={'prefixIcon'} />,

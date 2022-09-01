@@ -10,6 +10,7 @@ export default defineConfig({
     { path: '/page3', component: '@/pages/page3' },
     { path: '/page4', component: '@/pages/page4' },
     { path: '/page5', component: '@/pages/page5' },
+    { path: '/page6', component: '@/pages/page6' },
   ],
   fastRefresh: {},
   styles: [``],

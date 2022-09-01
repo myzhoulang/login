@@ -15,10 +15,10 @@ export default function IndexPage() {
       <Login
         formAlign="left"
         siderContent={<div className={'siderBar'}></div>}
-        siderProps={{
-          style: { backgroundColor: '#ffe0eb' },
+        siderStyle={{
+          backgroundColor: '#ffe0eb',
         }}
-        style={{ height: '100%' }}
+        layoutStyle={{ height: '100%' }}
         logo="http://www.sooui.com/template/sooui/iscwo/images/logo.svg"
         title="Ant Design"
         subTitle="Ant Design 是西湖区最具影响力的 Web 设计规范"

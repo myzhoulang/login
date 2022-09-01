@@ -63,13 +63,12 @@ export default function IndexPage() {
     <div className={'page3 login'}>
       <Login
         siderContent={<Sider />}
-        siderProps={{
-          style: { backgroundColor: '#FFF' },
+        siderStyle={{
+          backgroundColor: '#FFF',
         }}
-        style={{ height: '100%' }}
         title="Ant Design"
-        contentProps={{
-          style: { backgroundColor: '#064E89' },
+        contentStyle={{
+          backgroundColor: '#064E89',
         }}
         formProps={{
           layout: formLayoutType,

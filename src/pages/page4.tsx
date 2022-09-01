@@ -27,7 +27,6 @@ export default function IndexPage() {
         siderProps={{
           width: '40%',
         }}
-        style={{ height: '100%' }}
         logo="http://www.sooui.com/template/sooui/iscwo/images/logo.svg"
         title="Ant Design"
         subTitle="Ant Design 是西湖区最具影响力的 Web 设计规范"

@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { Layout, Button, Image } from 'antd';
 import ProForm, { ProFormProps } from '@ant-design/pro-form';
 
-import type { SiderProps } from 'antd';
+import type { SiderProps, LayoutProps } from 'antd';
 
 import styles from './index.less';
 
@@ -12,12 +12,22 @@ export type LoginProps<T> = {
   /** 侧边展示辅助信息区域 */
   siderContent?: ReactNode;
   /** 侧边栏 props  */
-  siderProps?: Omit<SiderProps, 'breakpoint' | 'collapsedWidth' | 'trigger'>;
-  /** 主内容区 props */
-  contentProps?: { style: CSSProperties };
+  siderProps?: Omit<
+    SiderProps,
+    'breakpoint' | 'collapsedWidth' | 'trigger' | 'style'
+  >;
+  /** 侧边栏 CSS 样式 */
+  siderStyle?: CSSProperties;
+  /** 主内容区 CSS 样式 */
+  contentStyle?: CSSProperties;
+  /** 主内容区 CSS props */
+  contentProps?: Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>;
   /** 表单位置 默认: 'left' */
   formAlign?: 'left' | 'right' | 'center';
-  style?: CSSProperties;
+  /** 主容器 Props */
+  layoutProps: Omit<LayoutProps, 'style'>;
+  /** 主容器样式 */
+  layoutStyle?: CSSProperties;
   /** logo */
   logo?: string | ReactNode;
   /** 表单标题 */
@@ -49,9 +59,12 @@ function Login<T = Record<string, any>>(
   const {
     siderContent,
     siderProps,
+    siderStyle,
     formAlign = 'left',
     contentProps,
-    style,
+    contentStyle,
+    layoutStyle,
+    layoutProps,
     logo = null,
     title,
     subTitle,
@@ -132,22 +145,23 @@ function Login<T = Record<string, any>>(
 
   // 侧边栏
   const siderWrap = siderContent ? (
-    <Sider {...mergeSiderProps}>{siderContent}</Sider>
+    <Sider key={'sider'} {...mergeSiderProps} style={siderStyle}>
+      {siderContent}
+    </Sider>
   ) : null;
 
   // 主内容区域
   const contentWrap = (
     <Content
+      key={'content'}
       {...contentProps}
       className={classnames([
         'login-content',
-        styles[
-          `loginContent${
-            formAlign.substring(0, 1).toUpperCase() + formAlign.substring(1)
-          }`
-        ],
+        siderWrap ? '' : styles.loginContentSuspended,
         styles.content,
+        contentProps?.className,
       ])}
+      style={contentStyle}
     >
       <div className={classnames(['login-form-wrap', styles.loginFormWrap])}>
         {/* 登录表单顶部内容 */}
@@ -178,9 +192,12 @@ function Login<T = Record<string, any>>(
   );
 
   let content = [siderWrap, contentWrap];
-  content = formAlign === 'left' ? content.reverse() : content;
 
-  return <Layout style={style}>{content.map((item) => item)}</Layout>;
+  return (
+    <Layout {...layoutProps} style={layoutStyle}>
+      {formAlign === 'left' ? content.reverse() : content}
+    </Layout>
+  );
 }
 
 export default Login;
