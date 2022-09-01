@@ -3,6 +3,7 @@ import Login from '@/components/Login';
 
 import Form from './Form';
 import sideBarImage from '@/assets/images/img-34.png';
+import type { FormData } from './Form';
 import './index6.less';
 
 const { Title, Text } = Typography;
@@ -10,7 +11,7 @@ const { Title, Text } = Typography;
 export default function IndexPage() {
   return (
     <div className={'page6 login'}>
-      <Login
+      <Login<FormData>
         siderContent={
           <div className="sider">
             <img src={sideBarImage} />
@@ -19,7 +20,7 @@ export default function IndexPage() {
         siderStyle={{
           backgroundColor: '#FFF',
         }}
-        siderProps={{ width: '45%' }}
+        siderProps={{ width: '50%' }}
         layoutProps={{
           className: 'layout',
         }}

@@ -4,11 +4,11 @@ import Login from '@/components/Login';
 import { ProFormRadio } from '@ant-design/pro-form';
 import type { FormLayout } from 'antd/lib/form/Form';
 
-// import styles from './index2.less';
-import './index3.less';
 import Form from './Form';
 import OtherLogin from './OtherLogin';
 import sideBarImage from '@/assets/svg/graphic5.svg';
+import type { FormData } from './Form';
+import './index3.less';
 
 const { Title, Paragraph } = Typography;
 function Sider() {
@@ -61,7 +61,7 @@ export default function IndexPage() {
   const [formLayoutType, setFormLayoutType] = useState<FormLayout>('vertical');
   return (
     <div className={'page3 login'}>
-      <Login
+      <Login<FormData>
         siderContent={<Sider />}
         siderStyle={{
           backgroundColor: '#FFF',

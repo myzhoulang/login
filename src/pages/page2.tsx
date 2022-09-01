@@ -3,16 +3,16 @@ import Login from '@/components/Login';
 import { ProFormRadio } from '@ant-design/pro-form';
 import type { FormLayout } from 'antd/lib/form/Form';
 
-// import styles from './index2.less';
-import './index2.less';
 import Form from './Form';
 import OtherLogin from './OtherLogin';
+import type { FormData } from './Form';
+import './index2.less';
 
 export default function IndexPage() {
   const [formLayoutType, setFormLayoutType] = useState<FormLayout>('vertical');
   return (
     <div className={'login page2'}>
-      <Login
+      <Login<FormData>
         formAlign="left"
         siderContent={<div className={'siderBar'}></div>}
         siderStyle={{

@@ -9,6 +9,12 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 type FormProps = {};
 
+export type FormData = {
+  username: string;
+  password: string;
+  captcha: string;
+};
+
 export default function Form(props: FormProps) {
   return (
     <>

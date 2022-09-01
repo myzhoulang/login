@@ -23,7 +23,7 @@ export type LoginProps<T> = {
   /** 主内容区 CSS props */
   contentProps?: Omit<React.HTMLAttributes<HTMLDivElement>, 'style'>;
   /** 表单位置 默认: 'left' */
-  formAlign?: 'left' | 'right' | 'center';
+  formAlign?: 'left' | 'right';
   /** 主容器 Props */
   layoutProps: Omit<LayoutProps, 'style'>;
   /** 主容器样式 */
