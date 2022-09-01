@@ -1,47 +1,186 @@
-import React from 'react';
-
+import React, { CSSProperties, ReactNode, PropsWithChildren } from 'react';
 import classnames from 'classnames';
+import { Layout, Button, Image } from 'antd';
+import ProForm, { ProFormProps } from '@ant-design/pro-form';
+
+import type { SiderProps } from 'antd';
+
 import styles from './index.less';
-import LoginForm from './Form';
 
-import type { CSSProperties } from 'react';
-import OtherLogin from '@/components/Login/OtherLogin';
+type WithFalse<T> = T | false;
+export type LoginProps<T> = {
+  /** 侧边展示辅助信息区域 */
+  siderContent?: ReactNode;
+  /** 侧边栏 props  */
+  siderProps?: Omit<SiderProps, 'breakpoint' | 'collapsedWidth' | 'trigger'>;
+  /** 主内容区 props */
+  contentProps?: { style: CSSProperties };
+  /** 表单位置 默认: 'left' */
+  formAlign?: 'left' | 'right' | 'center';
+  style?: CSSProperties;
+  /** logo */
+  logo?: string | ReactNode;
+  /** 表单标题 */
+  title?: string | ReactNode;
+  /** 表单副标题 */
+  subTitle?: string | ReactNode;
+  /** 表单 props */
+  formProps?: ProFormProps<T>;
+  /** 注册跳转地址 */
+  registerUrl?: string;
+  /** 其他动作，如：其他登录方式 */
+  actions?: ReactNode | React.ReactNode[] | false;
+  /** 表单头部自定义渲染， false 则没有头部信息 */
+  formLoginTopRender?: WithFalse<() => ReactNode>;
+  /**
+   * 是否需要内部的表单元素
+   * 当使用 ModalForm 去渲染表单时，
+   * 会存在表单嵌套，去除内部表单，直接使用 ModalForm 表单。
+   *
+   * */
+  requiredForm?: boolean;
+};
 
-type LoginProps = {};
+const { Sider, Content } = Layout;
 
-const Login: React.FC<LoginProps> = (props) => {
-  return (
-    <>
+function Login<T = Record<string, any>>(
+  props: PropsWithChildren<Partial<LoginProps<T>>>,
+) {
+  const {
+    siderContent,
+    siderProps,
+    formAlign = 'left',
+    contentProps,
+    style,
+    logo = null,
+    title,
+    subTitle,
+    children,
+    formProps,
+    registerUrl,
+    actions = false,
+    formLoginTopRender,
+    requiredForm = true,
+  } = props;
+
+  const mergeFormProps = Object.assign(
+    {
+      submitter: {
+        render() {
+          return (
+            <Button size="large" type="primary" block>
+              登陆
+            </Button>
+          );
+        },
+      },
+    },
+    formProps,
+  );
+
+  const mergeSiderProps = Object.assign(
+    { defaultCollapsed: true, width: '50%' },
+    siderProps,
+    { breakpoint: 'xs' as const, collapsedWidth: 0, trigger: null },
+  );
+
+  // 登录表单顶部
+  const renderFormLoginTop = () => {
+    if (formLoginTopRender === false) {
+      return null;
+    }
+
+    if (typeof formLoginTopRender === 'function') {
+      return formLoginTopRender();
+    }
+
+    return (
       <div className={classnames(['login-top', styles.loginTop])}>
         <div className={classnames(['login-header', styles.loginHeader])}>
-          <span className={classnames(['login-logo', styles.loginLogo])}>
-            <img
-              src="http://www.sooui.com/template/sooui/iscwo/images/logo.svg"
-              alt=""
-            />
-          </span>
-          <span className={classnames(['login-title', styles.loginTitle])}>
-            Ant Design
-          </span>
+          {logoNode ? (
+            <span
+              key={'logo'}
+              className={classnames(['login-logo', styles.loginLogo])}
+            >
+              {logoNode}
+            </span>
+          ) : null}
+
+          {title ? (
+            <span
+              key={'title'}
+              className={classnames(['login-title', styles.loginTitle])}
+            >
+              {title}
+            </span>
+          ) : null}
         </div>
-        <div className={classnames(['login-desc', styles.loginDesc])}>
-          Ant Design 是西湖区最具影响力的 Web 设计规范
-        </div>
-      </div>
 
-      <div className={classnames(['login-main', styles.loginMain])}>
-        <LoginForm />
-
-        <OtherLogin />
-
-        <div className={classnames(['login-footer', styles.loginFooter])}>
-          <div>
-            还没有账号？ <a href="#">去注册</a>
+        {subTitle ? (
+          <div className={classnames(['login-desc', styles.loginDesc])}>
+            {subTitle}
           </div>
+        ) : null}
+      </div>
+    );
+  };
+
+  let logoNode = logo;
+  if (logo && typeof logo === 'string') {
+    logoNode = <Image src={logo} width={44} />;
+  }
+
+  // 侧边栏
+  const siderWrap = siderContent ? (
+    <Sider {...mergeSiderProps}>{siderContent}</Sider>
+  ) : null;
+
+  // 主内容区域
+  const contentWrap = (
+    <Content
+      {...contentProps}
+      className={classnames([
+        'login-content',
+        styles[
+          `loginContent${
+            formAlign.substring(0, 1).toUpperCase() + formAlign.substring(1)
+          }`
+        ],
+        styles.content,
+      ])}
+    >
+      <div className={classnames(['login-form-wrap', styles.loginFormWrap])}>
+        {/* 登录表单顶部内容 */}
+        {renderFormLoginTop()}
+
+        {/** 表单内容区域 */}
+        <div className={classnames(['login-main', styles.loginMain])}>
+          <div className={classnames(['login-form', styles.loginForm])}>
+            {requiredForm ? (
+              <ProForm {...mergeFormProps}>{children}</ProForm>
+            ) : (
+              children
+            )}
+          </div>
+
+          {actions ? actions : null}
+
+          {registerUrl ? (
+            <div className={classnames(['login-footer', styles.loginFooter])}>
+              <div>
+                还没有账号？ <a href={registerUrl}>去注册</a>
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
-    </>
+    </Content>
   );
-};
+
+  let content = [siderWrap, contentWrap];
+  content = formAlign === 'left' ? content.reverse() : content;
+
+  return <Layout style={style}>{content.map((item) => item)}</Layout>;
+}
 
 export default Login;

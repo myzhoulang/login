@@ -1,33 +1,39 @@
 import { useState } from 'react';
+import { Image } from 'antd';
+import Login from '@/components/Login';
 import { ProFormRadio } from '@ant-design/pro-form';
 import type { FormLayout } from 'antd/lib/form/Form';
-import Login from '@/components/Login';
-// import styles from './index.less';
-import './index.less';
+
+// import styles from './index2.less';
+import './index4.less';
 import Form from './Form';
 import OtherLogin from './OtherLogin';
+import Graphic from '@/assets/svg/graphic3.svg';
 
-type FormData = {
-  username: string;
-  password: string;
-  captcha: string;
+const Sider = () => {
+  return (
+    <div className="sider">
+      <Image src={Graphic} preview={false} style={{ maxWidth: 378 }} />
+    </div>
+  );
 };
 export default function IndexPage() {
   const [formLayoutType, setFormLayoutType] = useState<FormLayout>('vertical');
   return (
-    <div className={'login page'}>
-      <Login<FormData>
-        formAlign="center"
-        contentProps={{
-          style: { background: '#fff' },
+    <div className={'page4 login'}>
+      <Login
+        formAlign="right"
+        siderContent={<Sider />}
+        siderProps={{
+          width: '40%',
         }}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
+        style={{ height: '100%' }}
         logo="http://www.sooui.com/template/sooui/iscwo/images/logo.svg"
         title="Ant Design"
         subTitle="Ant Design 是西湖区最具影响力的 Web 设计规范"
+        formLoginTopRender={() => {
+          return <h2>自定义表单头部-登录表单</h2>;
+        }}
         formProps={{
           layout: formLayoutType,
           labelCol: { flex: formLayoutType === 'horizontal' ? '80px' : '' },
@@ -36,8 +42,6 @@ export default function IndexPage() {
             return Promise.resolve();
           },
         }}
-        registerUrl="#"
-        actions={<OtherLogin />}
       >
         <ProFormRadio.Group
           label="标签布局"

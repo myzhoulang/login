@@ -12,9 +12,9 @@ type OtherLoginProps = {};
 
 const OtherLogin: React.FC<OtherLoginProps> = (props) => {
   return (
-    <div className={classnames(['login-other', styles.loginOther])}>
+    <div className={'login-other'}>
       <Divider plain>Or Login With</Divider>
-      <div>
+      <>
         <Space size={24}>
           <Tag icon={<TwitterOutlined />} color="#55acee">
             Twitter
@@ -26,7 +26,7 @@ const OtherLogin: React.FC<OtherLoginProps> = (props) => {
             Facebook
           </Tag>
         </Space>
-      </div>
+      </>
     </div>
   );
 };
