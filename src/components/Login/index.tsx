@@ -92,7 +92,7 @@ function Login<T = Record<string, any>>(
   );
 
   const mergeSiderProps = Object.assign(
-    { defaultCollapsed: true, width: '50%' },
+    { defaultCollapsed: false, width: '50%' },
     siderProps,
     { breakpoint: 'xs' as const, collapsedWidth: 0, trigger: null },
   );
